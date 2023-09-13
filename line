@@ -1,0 +1,23 @@
+#!/bin/bash
+
+issue_number="#YOUR_ISSUE_NUMBER"
+
+# Initialize counters
+total_insertions=0
+total_deletions=0
+
+# Loop through each commit associated with the issue
+for commit in $(git log --pretty=format:"%H" --grep="$issue_number"); do
+  # Get the number of insertions and deletions for this commit
+  stats=$(git show --stat --pretty=format:"" $commit | tail -1)
+  insertions=$(echo $stats | grep -o "[0-9]\+ insertions" | grep -o "[0-9]\+")
+  deletions=$(echo $stats | grep -o "[0-9]\+ deletions" | grep -o "[0-9]\+")
+
+  # Add the insertions and deletions to the total
+  total_insertions=$((total_insertions+${insertions:-0}))
+  total_deletions=$((total_deletions+${deletions:-0}))
+done
+
+# Print the results
+echo "Total insertions: $total_insertions"
+echo "Total deletions: $total_deletions"
