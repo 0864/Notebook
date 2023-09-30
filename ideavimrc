@@ -1,0 +1,47 @@
+" IdeaVim 配置
+
+" 使用活动领导键调用 IntelliJ 的 'Find Action...'
+" set actionleader=","
+
+" noremap <actionleader>r :action Split Right
+
+" mapleader
+let mapleader = ","
+
+nnoremap <Leader>r :action SplitVertically<CR>
+nnoremap <Leader>h :action SplitHorizontally<CR>
+nnoremap <Leader>a :action ActivateAIAssistantToolWindow<CR>
+
+
+" 在插入模式下，将 jk 映射为 escape
+inoremap jk <Esc>
+
+" 使用 tab 切换 IntelliJ 的标签页
+nnoremap <Tab> :action NextTab<CR>
+Nnoremap <S-Tab> :action PreviousTab<CR>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" 在可视模式下，使用 Ctrl + C 复制文字到系统剪切板
+vnoremap <C-c> "+y
+
+" 在插入模式下，使用 Ctrl + V 从系统剪切板中粘贴
+imap <C-v> <Esc>"+pA
+
+" 默认使用 Vim 的增1 (Ctrl + A) 和减1 (Ctrl + X) 命令
+set number
+
+" 设置相对行号
+set relativenumber
+
+" 将长行在视觉上进行折叠，但在文件中保持原样
+set wrap
+set linebreak
+
+" 设置查找时忽略大小写
+set ignorecase
+set smartcase
+
+" 总是显示状态行
+set laststatus=2
