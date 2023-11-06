@@ -8,3 +8,26 @@ fs.writeFile('output.txt', Buffer.concat([bom, Buffer.from(content, 'utf8')]), (
     if (err) throw err;
     console.log('The file has been saved!');
 });
+
+
+const fs = require('fs');
+const filePath = './x/a.txt';
+
+fs.readFile(filePath, 'utf8', function(err, data) {
+    if (err) throw err;
+
+    let lines = data.split('\n');
+    lines[1] = replacePartOfLine(lines[1], 10, 17, 'abcdefgh');
+    lines[1] = replacePartOfLine(lines[1], 39, 41, 'abc');
+    
+    const newData = lines.join('\n');
+
+    fs.writeFile('./x/b.txt', '\uFEFF' + newData, 'utf8', function (err) {
+        if (err) throw err;
+        console.log('The file has been saved!');
+    });
+});
+
+function replacePartOfLine(line, start, end, replacement) {
+    return line.substring(0, start) + replacement + line.substring(end + 1);
+}
