@@ -1,0 +1,10 @@
+const fs = require('fs');
+
+const content = 'a\nbbasd129cfnasd\nc';
+
+const bom = Buffer.from([0xEF, 0xBB, 0xBF]);
+
+fs.writeFile('output.txt', Buffer.concat([bom, Buffer.from(content, 'utf8')]), (err) => {
+    if (err) throw err;
+    console.log('The file has been saved!');
+});
